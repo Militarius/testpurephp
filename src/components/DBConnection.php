@@ -2,7 +2,9 @@
 
 namespace app\components;
 
-class DBConnection extends \PDO
+use PDO;
+
+class DBConnection extends PDO
 {
     public function __construct()
 {

@@ -1,10 +1,12 @@
 <?php
 
+use app\controllers\DefaultController;
+
 return [
     '/' => static function() {
-        print "KUKU";
+        return (new DefaultController())->index();
     },
     '/test' => static function() {
-        print "KUKU1";
+        return (new DefaultController())->test();
     }
 ];

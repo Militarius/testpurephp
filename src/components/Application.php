@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-use app\components\DBConnection;
+use Exception;
 
 class Application
 {
@@ -16,6 +16,9 @@ class Application
         $this->setRoutes();
     }
 
+    /**
+     * @throws Exception
+     */
     public function __destruct()
     {
         Router::execute($_SERVER['REQUEST_URI']);

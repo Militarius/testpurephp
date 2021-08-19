@@ -9,9 +9,13 @@ class Router
 {
     private static $routes = [];
 
-    private function __construct() {}
+    private function __construct() {
+        // Disable changes
+    }
 
-    private function __clone() {}
+    private function __clone() {
+        // Disable cloning
+    }
 
     public static function route($pattern, $callback): void
     {
@@ -31,6 +35,6 @@ class Router
                 return call_user_func_array($callback, array_values($params));
             }
         }
-        print 'Page not found!';
+        return 'Page not found!';
     }
 }
