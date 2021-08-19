@@ -32,7 +32,10 @@ class Router
         foreach (static::$routes as $pattern => $callback) {
             if(preg_match($pattern, $url, $params)) {
                 array_shift($params);
-                return call_user_func_array($callback, array_values($params));
+                if(is_callable($callback)) {
+                    return call_user_func_array($callback, array_values($params));
+                }
+                return $callback;
             }
         }
         return 'Page not found!';
