@@ -6,7 +6,7 @@
         <i class="bi bi-plus"></i>&nbsp;Создать группу
     </a>
     &nbsp;
-    <a href="/group/delete" title="Удалить выбранные" class="btn btn-outline-danger">
+    <a href="/group/delete" title="Удалить выбранные" id="deleteGroups" class="btn btn-outline-danger">
         <i class="bi bi-trash-fill"></i>&nbsp;Удалить выбранные
     </a>
 </div>
@@ -27,7 +27,7 @@
                         <tr>
                             <td>
                                 <label for="groupCheck<?= $model->attributes['id'] ?>"></label>
-                                <input type="checkbox" class="form-check-input check-group" id="groupCheck<?= $model->attributes['id'] ?>">
+                                <input type="checkbox" class="form-check-input check-group" data-id="<?= $model->attributes['id'] ?>" id="groupCheck<?= $model->attributes['id'] ?>">
                             </td>
                             <td><?= $model->attributes['name'] ?></td>
                             <td><?= $model->attributes['description'] ?></td>
@@ -47,3 +47,30 @@
           </tbody>
         </table>
       </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let deleteGroups = $('#deleteGroups');
+
+        deleteGroups.on('click', (e) => {
+            e.preventDefault();
+
+            let checkeds = $('.check-group').filter(':checked');
+            var ids = [];
+
+            for(let group of checkeds) {
+                ids.push(group.dataset.id);
+            }
+            $.ajax({
+                method: 'post',
+                url: '/group/delete',
+                data: {
+                    ids: ids
+                },
+                success: (e) => {
+                    document.location.reload();
+                }
+            })
+        });
+    });
+</script>

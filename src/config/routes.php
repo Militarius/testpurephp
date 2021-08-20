@@ -43,9 +43,16 @@ return [
     },
 
     // Роуты для уведомлений
-    '/send_notify' => static function() {
-        return (new DefaultController())->sendNotify();
+    '/notify' => static function() {
+        return (new DefaultController())->notify();
     },
+    '/notify_user_list' => static function() {
+        return (new DefaultController())->notifyUserList();
+    },
+    '/notify_send' => static function() {
+        return (new DefaultController())->notifySend();
+    },
+
 
     // Прочие роуты
     '/test' =>  static function() {

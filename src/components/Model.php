@@ -3,6 +3,7 @@
 namespace app\components;
 
 use ErrorException;
+use PDO;
 use PDOException;
 
 class Model
@@ -11,7 +12,11 @@ class Model
 
     protected $oldAttributes = [];
 
+    protected $relations = [];
+
     public $attributes = [];
+
+    public $relationModels = [];
 
     public function __construct()
     {
@@ -37,20 +42,22 @@ class Model
         $select_results = $this->select($conditions);
 
         $models = [];
+        if($select_results) {
 
-        foreach ($select_results as $k => $row) {
-            if($one && $k !== 0) {
-                continue;
-            }
-            /** @var Model $model */
-            $model = static::class;
-            $model = new $model();
-            foreach ($model->attributes as $attribute => $val) {
-                $model->attributes[$attribute] = $row[$attribute];
-                $model->oldAttributes[$attribute] = $row[$attribute];
-            }
+            foreach ($select_results as $k => $row) {
+                if($one && $k !== 0) {
+                    continue;
+                }
+                /** @var Model $model */
+                $model = static::class;
+                $model = new $model();
+                foreach ($model->attributes as $attribute => $val) {
+                    $model->attributes[$attribute] = $row[$attribute];
+                    $model->oldAttributes[$attribute] = $row[$attribute];
+                }
 
-            $models[] = $model;
+                $models[] = $model;
+            }
         }
 
         return ($one) ? current($models) : $models;
@@ -109,6 +116,7 @@ class Model
         $sql .= "`" . implode('`, `', array_keys($attrs)) . "`) VALUES ('" . implode("', '", $attrs) . "')";
 
         if($result = $this->connection->prepare($sql)->execute()) {
+            $this->attributes['id'] = $this->connection->lastInsertId();
             $this->oldAttributes = $this->attributes;
         }
 
@@ -143,6 +151,7 @@ class Model
         if($where = $this->where($conditions)) {
             $sql.= ' WHERE ' . implode(' AND ', $where);
         }
+        $sql .= ";";
 
         return $this->connection->prepare($sql)->execute();
     }
