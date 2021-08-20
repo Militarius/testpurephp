@@ -8,6 +8,11 @@ class Controller
 
     public $title = 'Controller';
 
+    public function redirect($page)
+    {
+        header("Location: /$page");
+        die();
+    }
     public function render($page, $params = [])
     {
         ob_start();

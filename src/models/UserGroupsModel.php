@@ -4,16 +4,15 @@ namespace app\models;
 
 use app\components\Model;
 
-class GroupModel extends Model
+class UserGroupsModel extends Model
 {
     public $attributes = [
-        'id' => '',
-        'name' => '',
-        'description' => ''
+        'user_id' => '',
+        'group_id' => '',
     ];
 
     public static function tableName(): string
     {
-        return 'groups';
+        return 'users_groups';
     }
 }

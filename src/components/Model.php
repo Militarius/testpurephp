@@ -27,17 +27,21 @@ class Model
         throw new PDOException('Отсутсвует имя таблицы');
     }
 
+    /**
+     * @param array $conditions
+     * @param bool $one
+     * @return array|false|mixed|Model
+     */
     private function models(array $conditions, bool $one = true)
     {
         $select_results = $this->select($conditions);
 
         $models = [];
 
-        if($one) {
-            $select_results = [current($select_results)];
-        }
-
-        foreach ($select_results as $row) {
+        foreach ($select_results as $k => $row) {
+            if($one && $k !== 0) {
+                continue;
+            }
             /** @var Model $model */
             $model = static::class;
             $model = new $model();
@@ -54,7 +58,7 @@ class Model
 
     public function findOne(array $conditions = [])
     {
-        return current($this->select($conditions));
+        return $this->models($conditions);
     }
 
     public function findAll(array $conditions = [])

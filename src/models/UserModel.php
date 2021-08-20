@@ -4,16 +4,18 @@ namespace app\models;
 
 use app\components\Model;
 
-class GroupModel extends Model
+class UserModel extends Model
 {
     public $attributes = [
         'id' => '',
-        'name' => '',
-        'description' => ''
+        'firstname' => '',
+        'middlename' => '',
+        'lastname' => '',
+        'email' => ''
     ];
 
     public static function tableName(): string
     {
-        return 'groups';
+        return 'users';
     }
 }

@@ -3,27 +3,51 @@
 use app\controllers\DefaultController;
 
 return [
+    // Основной роут
     '/' => static function() {
         (new DefaultController())->groups();//index();
     },
+
+    // Роуты для групп
     '/groups' => static function() {
         (new DefaultController())->groups();
     },
-    '/group/(\d+)' => static function($id) {
-        return (new DefaultController())->groups($id);
+    '/group/create' => static function() {
+        (new DefaultController())->groupCreate();
     },
+    '/group/update/(\d+)' => static function($id) {
+        (new DefaultController())->groupUpdate($id);
+    },
+    '/group/delete' => static function() {
+        (new DefaultController())->groupDelete();
+    },
+    '/group/delete/(\d+)' => static function($id) {
+        (new DefaultController())->groupDelete($id);
+    },
+
+    // Роуты для пользователей
     '/users' => static function() {
-        return (new DefaultController())->users();
+        (new DefaultController())->users();
     },
-    '/users/(\d+)' => static function($id) {
-        return (new DefaultController())->users($id);
+    '/user/create' => static function() {
+        (new DefaultController())->userCreate();
     },
+    '/user/update/(\d+)' => static function($id) {
+        (new DefaultController())->userUpdate($id);
+    },
+    '/user/delete/' => static function() {
+        (new DefaultController())->userDelete();
+    },
+    '/user/delete/(\d+)' => static function($id) {
+        (new DefaultController())->userDelete($id);
+    },
+
+    // Роуты для уведомлений
     '/send_notify' => static function() {
-        return (new DefaultController())->send_notify();
+        return (new DefaultController())->sendNotify();
     },
-    '/send_notify/(\d+)' => static function($id) {
-        return (new DefaultController())->send_notify($id);
-    },
+
+    // Прочие роуты
     '/test' =>  static function() {
         return (new DefaultController())->test();
     },

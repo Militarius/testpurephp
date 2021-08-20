@@ -13,7 +13,7 @@ use app\controllers\DefaultController;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <title><?php echo $this->title ?></title>
 </head>
 <body class="d-flex flex-column justify-content-between px-5">
@@ -26,13 +26,13 @@ use app\controllers\DefaultController;
         </ul>
     </header>
 </div>
-<div class="body-content my-auto flex-grow-1 h-100">
+<div class="body-content flex-grow-1">
     <?php echo $this->getContent($page, $params) ?>
 </div>
 
 <div id="ajax-container"></div>
 
-<div class="container">
+<div class="container mt-auto">
     <footer class="py-3 my-4">
         <p class="text-center text-muted">© 2021 Company, Inc</p>
     </footer>
@@ -45,7 +45,7 @@ use app\controllers\DefaultController;
         $.ajax({
             url: '/test',
             success: (e) => {
-                $('#ajax-container').html(e);
+                //$('#ajax-container').html(e);
             }
         });
     });
